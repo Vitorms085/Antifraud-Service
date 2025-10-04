@@ -24,13 +24,10 @@ subprojects {
         implementation 'org.postgresql:postgresql'
         implementation 'org.flywaydb:flyway-core'
         implementation 'org.flywaydb:flyway-database-postgresql'
+        implementation 'jakarta.validation:jakarta.validation-api:3.1.1'
 
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
-
-        testImplementation platform('org.junit:junit-bom:5.10.0')
-        testImplementation 'org.junit.jupiter:junit-jupiter'
-        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 
     test {

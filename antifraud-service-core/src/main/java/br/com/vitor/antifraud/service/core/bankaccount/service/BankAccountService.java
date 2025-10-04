@@ -14,7 +14,6 @@ public class BankAccountService {
 
     private final BankAccountRepository repository;
 
-
     public BankAccount findById(UUID id) {
         return repository.findById(id).orElseThrow(() -> new BankAccountNotFoundException(id));
     }

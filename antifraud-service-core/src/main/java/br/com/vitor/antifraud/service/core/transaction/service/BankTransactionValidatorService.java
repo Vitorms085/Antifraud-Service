@@ -31,7 +31,7 @@ public class BankTransactionValidatorService {
         validatePendingAnalysis(event, bankAccount);
     }
 
-    private BankAccount validateBankAccountExists(BankTransactionEvent event) {
+    BankAccount validateBankAccountExists(BankTransactionEvent event) {
         BankAccount bankAccount = bankAccountRepository.findById(event.getBankAccountId())
                 .orElseThrow(() -> new BankAccountNotFoundException(event.getBankAccountId()));
 
@@ -42,7 +42,7 @@ public class BankTransactionValidatorService {
         return bankAccount;
     }
 
-    private void validateCreditDebitLimit(BankTransactionEvent event, BankAccount bankAccount) {
+    void validateCreditDebitLimit(BankTransactionEvent event, BankAccount bankAccount) {
         switch (event.getType()) {
             case DEBIT -> {
                 if (bankAccount.getDebitLimit().compareTo(event.getValue()) < 0) {
@@ -58,7 +58,7 @@ public class BankTransactionValidatorService {
         }
     }
 
-    private void validatePendingAnalysis(BankTransactionEvent event, BankAccount bankAccount) {
+    void validatePendingAnalysis(BankTransactionEvent event, BankAccount bankAccount) {
         final LocalDateTime currentDateTime = LocalDateTime.now();
 
         if (suspiciousTransactionRepository.existsPendingAnalysisInTheLast7Days(bankAccount.getId(),

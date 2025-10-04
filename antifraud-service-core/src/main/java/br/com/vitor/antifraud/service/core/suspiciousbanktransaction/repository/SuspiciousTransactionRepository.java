@@ -8,6 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -40,4 +42,14 @@ public interface SuspiciousTransactionRepository extends PagingAndSortingReposit
                                                                @Param("TYPE") TransactionType type);
 
     Optional<SuspiciousBankTransaction> findByBankTransactionId(UUID bankTransactionId);
+
+    @Query("SELECT sbt FROM SuspiciousBankTransaction sbt " +
+           "JOIN BankTransaction bt ON bt.id = sbt.bankTransactionId " +
+           "WHERE sbt.createdAt BETWEEN :startDate AND :endDate " +
+           "AND (:bankAccountId IS NULL OR bt.bankAccountId = :bankAccountId)")
+    Page<SuspiciousBankTransaction> findAllWithFilters(
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate,
+            @Param("bankAccountId") UUID bankAccountId,
+            Pageable pageable);
 }

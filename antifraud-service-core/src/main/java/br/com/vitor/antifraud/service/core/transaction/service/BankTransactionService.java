@@ -9,6 +9,7 @@ import br.com.vitor.antifraud.service.core.transaction.exception.UnderAnalysisEx
 import br.com.vitor.antifraud.service.core.transaction.mapper.BankTransactionMapper;
 import br.com.vitor.antifraud.service.core.transaction.repository.BankTransactionRepository;
 import br.com.vitor.antifraud.service.model.banktransaction.BankTransaction;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class BankTransactionService {
     private final BankTransactionValidatorService bankTransactionValidatorService;
     private final SuspiciousTransactionService suspiciousTransactionService;
 
+    @Transactional
     public void processTransaction(BankTransactionEvent event) {
         validateTransaction(event);
 
@@ -28,7 +30,7 @@ public class BankTransactionService {
         repository.save(bankTransaction);
     }
 
-    private void validateTransaction(BankTransactionEvent event) {
+    void validateTransaction(BankTransactionEvent event) {
         try {
             bankTransactionValidatorService.validate(event);
         } catch (CreditLimitExceededException
@@ -37,9 +39,5 @@ public class BankTransactionService {
                  | LimitExceededLast2Minutes e) {
             suspiciousTransactionService.createAndPublish(event, e);
         }
-    }
-
-    public void saveTransactionAsFailed(BankTransactionEvent event, Exception e) {
-
     }
 }
