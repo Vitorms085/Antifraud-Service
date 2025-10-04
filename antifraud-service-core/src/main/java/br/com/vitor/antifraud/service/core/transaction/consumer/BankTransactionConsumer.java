@@ -22,6 +22,7 @@ public class BankTransactionConsumer {
             bankTransactionService.processTransaction(event);
         } catch (Exception e) {
             log.error("Error processing bank transaction event: {}", event, e);
+            bankTransactionService.saveTransactionAsFailed(event, e);
         }
 
         log.info("Finished processing bank transaction event: {}", event);

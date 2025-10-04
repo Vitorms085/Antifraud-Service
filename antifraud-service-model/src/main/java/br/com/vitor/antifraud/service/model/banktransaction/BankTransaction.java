@@ -1,9 +1,7 @@
 package br.com.vitor.antifraud.service.model.banktransaction;
 
 import br.com.vitor.antifraud.service.model.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,8 +16,12 @@ import java.util.UUID;
 public class BankTransaction extends BaseEntity {
 
     private UUID bankAccountId;
+
     @Column(name = "transaction_value")
     private BigDecimal value;
+
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
+
     private LocalDateTime dateTime;
 }

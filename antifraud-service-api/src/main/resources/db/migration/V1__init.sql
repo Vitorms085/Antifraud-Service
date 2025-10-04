@@ -13,9 +13,9 @@ CREATE TABLE audit_data (
 
 CREATE TABLE bank_account (
    id UUID PRIMARY KEY,
-   account_number VARCHAR(255) NOT NULL,
-   account_holder_name VARCHAR(255) NOT NULL,
-   bank_name VARCHAR(255) NOT NULL
+   credit_limit NUMERIC(19,2) NOT NULL,
+   debit_limit NUMERIC(19,2) NOT NULL,
+   is_active BOOLEAN NOT NULL DEFAULT FALSE
 ) INHERITS (audit_data);
 
 -- Create bank_transaction table

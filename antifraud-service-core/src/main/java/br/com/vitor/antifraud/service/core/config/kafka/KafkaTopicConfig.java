@@ -14,9 +14,20 @@ public class KafkaTopicConfig {
     @Value("${kafka.topic.transactions}")
     private String transactionsTopic;
 
+    @Value("${kafka.topic.suspicious}")
+    private String suspiciousTransactionsTopic;
+
     @Bean
     public NewTopic transactionsTopic() {
         return TopicBuilder.name(transactionsTopic)
+                .partitions(1)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic suspiciousTransactionsTopic() {
+        return TopicBuilder.name(suspiciousTransactionsTopic)
                 .partitions(1)
                 .replicas(1)
                 .build();
