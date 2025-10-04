@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
 }
 
 group = 'br.com.vitor.antifraud.service'
@@ -20,6 +22,19 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
     testImplementation 'org.testcontainers:kafka'
+}
+
+bootJar {
+    enabled = true
+    mainClass = 'br.com.vitor.antifraud.service.api.Main'
+}
+
+jar {
+    enabled = true
+}
+
+springBoot {
+    mainClass = 'br.com.vitor.antifraud.service.api.Main'
 }
 
 test {

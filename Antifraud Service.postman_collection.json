@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "310f463d-ab95-4aa5-9f18-46380466279c",
+		"name": "Antifraud Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13761677"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/health/health-check",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"health",
+						"health-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Bank Account",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/bank-accounts/:accountId",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"bank-accounts",
+						":accountId"
+					],
+					"variable": [
+						{
+							"key": "accountId",
+							"value": "fdf9c6a5-334d-4910-b48f-0247c8062967"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Analysis Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/analises/:bankTransactionId",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"analises",
+						":bankTransactionId"
+					],
+					"variable": [
+						{
+							"key": "bankTransactionId",
+							"value": "40383924-7a71-4d41-85d7-a83149b0306a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Suspicious",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/analises/suspeitas?startDate=2025-01-01T01:01:00&endDate=2025-12-31T01:01:00",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"analises",
+						"suspeitas"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2025-01-01T01:01:00"
+						},
+						{
+							"key": "endDate",
+							"value": "2025-12-31T01:01:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Analysis Status",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"APPROVED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/analises/:transactionId",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"analises",
+						":transactionId"
+					],
+					"variable": [
+						{
+							"key": "transactionId",
+							"value": "40383924-7a71-4d41-85d7-a83149b0306a"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
